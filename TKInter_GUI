@@ -1,0 +1,58 @@
+import tkinter
+from tkinter import Menu
+from tkinter import ttk
+
+############aint working dk why
+# # quit command
+# def _quit():
+#     window.quit()
+#     window.destroy()
+#     exit()
+
+
+def get_current_window_size():
+    window.update()
+    print('width = ', window.winfo_width())
+    print('heiight = ', window.winfo_height())
+
+
+def set_min_size():
+    window.minsize(width=300, height=1) # 1 means the default size
+
+    # disable resizing GUi
+    window.resizable(0, 0)
+
+
+# instantiates a tk inter
+window = tkinter.Tk()
+
+# title
+window.title("Sample GUI")
+
+# create a menu bar
+menubar = Menu()
+window.config(menu=menubar)
+
+# add menu items
+filemenu = Menu(menubar, tearoff=0)
+filemenu.add_command(label="New")
+filemenu.add_separator()
+filemenu.add_command(label="Exit")#, command=_quit())
+menubar.add_cascade(label="File", menu=filemenu)
+
+
+# tab control
+tabcontrol = ttk.Notebook(window)
+tab1 = ttk.Frame(tabcontrol)
+tabcontrol.add(tab1, text='Tab 1')
+
+# make tab visible
+tabcontrol.pack(expand=1, fill="both")
+
+get_current_window_size()
+set_min_size()
+print()
+get_current_window_size()
+
+# start GUI
+window.mainloop()
