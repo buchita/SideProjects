@@ -1,6 +1,8 @@
 import tkinter
 from tkinter import Menu
 from tkinter import ttk
+from tkinter import LabelFrame
+from tkinter import Entry
 
 ############aint working dk why
 # # quit command
@@ -63,6 +65,11 @@ tabcontrol.add(tab2, text='Tab 2')
 # make tab visible
 tabcontrol.pack(expand=1, fill="both")
 
+
+labelframe = ttk.LabelFrame(tab1, text="Showing the Label")
+labelframe.grid(column=0, row=0, padx=8, pady=4)
+ttk.Label(labelframe, text='something: ').grid(column=0, row=0, sticky='W')
+# labelframe.pack(padx=10, pady=10)
 
 # start GUI
 window.mainloop()
