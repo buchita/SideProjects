@@ -1,0 +1,56 @@
+#################################################################################################
+# Program: Read from API and convert the result into HTML
+# 07/06/2019
+# Buchita Gitchamnan
+#################################################################################################
+
+
+import requests
+
+
+def get_requests(url):
+    reqLatest = requests.get(url)
+    contentRate = reqLatest.json()['rates']
+
+    logo = 'https://exchangeratesapi.io/static/logo.svg'
+
+    return contentRate, logo
+
+
+def create_html(content, picsvg, html_file):
+
+    html = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Exchange Rate</title>
+        <style>
+            body{font-family:verdana;}
+            
+            table, th, td 
+            {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="text-align: center; color: pink;">Exchange Rate from Euro</h1>
+     """
+
+    with open(html_file, mode="w") as output_file:
+        output_file.write(html)
+        output_file.write('{}{}{}'.format('<img src="', picsvg, '" style="display: block; margin-left: auto; margin-right: auto; width: 10%;"> <br>'))
+        output_file.write('<table align="center" ><tr style="background-color: pink"><th>Currency</th><th>Rate</th></tr>')
+        for key, value in content.items():
+            output_file.write("{}{}{}{}{}".format("<tr><td>", key, "</td><td>", value, "</td></tr>"))
+
+        output_file.write('</table></body></html>')
+
+
+dic_rate, logo = get_requests('https://api.exchangeratesapi.io/latest')
+print(logo
+      )
+create_html(dic_rate, logo, "sample.html")
+
+
